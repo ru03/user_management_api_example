@@ -14,6 +14,6 @@ const findById = (id) => userModel.findOne({
   raw: true,
 });
 
-const updatePassword = ({ id, password }) => userModel.update({ id, password });
+const updatePassword = ({ id, password }) => userModel.update({ password }, { where: { id } });
 
 module.exports = { create, findAll, findById, updatePassword };

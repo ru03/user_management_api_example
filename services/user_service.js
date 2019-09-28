@@ -1,5 +1,6 @@
 const userRepository = require('../repository/users/user_repository');
 const userValidator = require('../validators/users').validator;
+const passValidator = require('../validators/users').password;
 const bcrypt = require('bcrypt');
 
 const create = async (user) => {
@@ -13,24 +14,32 @@ const create = async (user) => {
 
     return { users, status: 200 };
   } catch ({ inner, message }) {
-    console.log(message)
     if (inner) {
       const errors = inner.reduce((p, c) => {
         return { ...p, [c.path]: c.message };
       }, {});
       throw { messages: errors, status: 400 };
     } else {
-      throw { message: 'An error ocurred. Try again.', status: 400 };
+      throw { message: 'An error ocurred. Try again.', status: 500 };
     }
   }
 }
 
 const changePassword = async ({ id, password }) => {
   try {
-    const passwordChanged = await userRepository.updatePassword({ id, password });
-    return true;
-  } catch (e) {
-    return { message: 'Error' };
+    await passValidator.validate({ password }, { abortEarly: false });
+    const passHashed = await bcrypt.hash(password, 10);
+    await userRepository.updatePassword({ id, password: passHashed, updatedAt: new Date().getTime() });
+    return { status: 204 };
+  } catch ({ inner, message }) {
+    if (inner) {
+      const errors = inner.reduce((p, c) => {
+        return { ...p, [c.path]: c.message };
+      }, {});
+      throw { messages: errors, status: 400 };
+    } else {
+      throw { message: 'An error ocurred. Try again.', status: 500 };
+    }
   }
 }
 
@@ -48,8 +57,8 @@ const getById = async (id) => {
     const user = await userRepository.findById(id);
     return { status: 200, users: user };
   } catch (e) {
-    throw { status: 500, message: 'An error ocurred. Try again.' };
+    throw { message: 'An error ocurred. Try again.', status: 500 };
   }
 }
 
-module.exports = { create, getAll, getById };
+module.exports = { changePassword, create, getAll, getById };

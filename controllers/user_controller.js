@@ -33,11 +33,14 @@ const createUser = async (req, res, next) => {
 const changePassword = async (req, res, next) => {
   try {
     const { id, password } = req.body;
-    res.status(200).json({ message: 'Password changed succeesful' })
-  } catch (e) {
-    // TODO: Handle error
-    console.log(e)
-    res.status(500).json({ error: 'Error' });
+    const { status } = await userService.changePassword({ id, password });
+    res.status(status).json();
+  } catch ({ message, messages, status }) {
+    if (messages) {
+      res.status(status).json({ message: messages });
+    } else {
+      res.status(status).json({ message });
+    }
   }
 }
 
