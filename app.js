@@ -16,6 +16,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 sequelizeConf.authenticate().then(_ => console.log('auth ok')).catch(err => console.log(err));
 
-app.use('/', indexRouter);
+app.use('/api/v1/', indexRouter);
 
 module.exports = app;
