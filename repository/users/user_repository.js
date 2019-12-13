@@ -3,9 +3,11 @@ const userModel = models.user;
 
 const create = (user) => userModel.create(user, { raw: true });
 
-const findAll = () => userModel.findAll({
+const findAll = (limit = 10, order = 'DESC') => userModel.findAll({
   attributes: ['id', 'name', 'lastName', 'email', 'createdAt', 'updatedAt'],
   raw: true,
+  limit,
+  order: [['lastName', order]]
 });
 
 const findById = (id) => userModel.findOne({
