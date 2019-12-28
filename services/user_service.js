@@ -43,10 +43,11 @@ const changePassword = async ({ id, password }) => {
   }
 }
 
-const getAll = async () => {
+const getAll = async (page, pageSize) => {
   try {
-    const users = await userRepository.findAll();
-    return { users, status: 200 };
+    const offset = page * pageSize;
+    const { rows: users, count } = await userRepository.findAll(pageSize * 1, offset);
+    return { users, count, status: 200 };
   } catch (error) {
     throw { message: 'An error ocurred. Try again.', status: 500 };
   }

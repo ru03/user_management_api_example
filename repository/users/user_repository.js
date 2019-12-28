@@ -3,9 +3,10 @@ const userModel = models.user;
 
 const create = (user) => userModel.create(user, { raw: true });
 
-const findAll = (limit = 10, order = 'DESC') => userModel.findAll({
+const findAll = (limit = 10, offset = 1, order = 'ASC') => userModel.findAndCountAll({
   attributes: ['id', 'name', 'lastName', 'email', 'createdAt', 'updatedAt'],
   raw: true,
+  offset,
   limit,
   order: [['lastName', order]]
 });

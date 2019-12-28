@@ -3,8 +3,9 @@ const bcrypt = require('bcrypt');
 
 const allUsers = async (req, res, next) => {
   try {
-    const { status, users } = await userService.getAll();
-    res.status(status).json({ users });
+    const { page, limit } = req.query;
+    const { count, status, users } = await userService.getAll(page, limit);
+    res.status(status).json({ count, users });
   } catch ({ message, status }) {
     res.status(status).json({ message });
   }
@@ -47,7 +48,6 @@ const changePassword = async (req, res, next) => {
 const userById = async (req, res, next) => {
   try {
     const id = req.params.id;
-    console.log('id', id)
     const { status, users } = await userService.getById(id);
     res.status(status).json({ users });
   } catch ({ message, status }) {
