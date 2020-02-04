@@ -16,14 +16,14 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api/v1",
+      "url": "http://localhost:3001/api/v1",
       "description": "Dev server"
     }
   ],
   "tags": [
     {
       "name": "Users",
-      "externalDocs": "http://localhost:3000/api/v1/users"
+      "externalDocs": "http://localhost:3001/api/v1/users"
     }
   ],
   "paths": {
@@ -42,6 +42,15 @@
               "type": "integer",
               "format": "int64",
               "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0
             }
           },
           {

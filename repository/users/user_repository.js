@@ -3,7 +3,7 @@ const userModel = models.user;
 
 const create = (user) => userModel.create(user, { raw: true });
 
-const findAll = (limit = 10, offset = 1, order = 'ASC') => userModel.findAndCountAll({
+const findAll = (limit = 10, offset = 0, order = 'ASC') => userModel.findAndCountAll({
   attributes: ['id', 'name', 'lastName', 'email', 'createdAt', 'updatedAt'],
   raw: true,
   offset,
