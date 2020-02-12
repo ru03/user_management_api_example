@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt');
 
 const allUsers = async (req, res, next) => {
   try {
-    const { page, limit } = req.query;
-    const { count, status, users } = await userService.getAll(page, limit);
+    const { page, limit, order } = req.query;
+    const { count, status, users } = await userService.getAll(page, limit, order);
     res.status(status).json({ count, users });
   } catch ({ message, status }) {
     res.status(status).json({ message });

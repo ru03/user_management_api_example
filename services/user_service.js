@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 const create = async (user) => {
   try {
     await userValidator.validate(user, { abortEarly: false });
-
     const passHashed = await bcrypt.hash(user.password, 10);
     const { dataValues } = await userRepository.create({ ...user, password: passHashed });
     // Remove attribute password from object
@@ -43,10 +42,10 @@ const changePassword = async ({ id, password }) => {
   }
 }
 
-const getAll = async (page, pageSize) => {
+const getAll = async (page, pageSize, order) => {
   try {
     const offset = page * pageSize;
-    const { rows: users, count } = await userRepository.findAll(pageSize * 1, offset);
+    const { rows: users, count } = await userRepository.findAll(pageSize * 1, offset, order);
     return { users, count, status: 200 };
   } catch (error) {
     throw { message: 'An error ocurred. Try again.', status: 500 };

@@ -8,7 +8,7 @@ const findAll = (limit = 10, offset = 0, order = 'ASC') => userModel.findAndCoun
   raw: true,
   offset,
   limit,
-  order: [['lastName', order]]
+  order: [['updatedAt', order]]
 });
 
 const findById = (id) => userModel.findOne({
