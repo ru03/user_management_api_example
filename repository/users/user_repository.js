@@ -3,6 +3,8 @@ const userModel = models.user;
 
 const create = (user) => userModel.create(user, { raw: true });
 
+const deleteUser = ({ id }) => userModel.destroy({ where: { id } });
+
 const findAll = (limit = 10, offset = 0, order = 'ASC') => userModel.findAndCountAll({
   attributes: ['id', 'name', 'lastName', 'email', 'active', 'createdAt', 'updatedAt'],
   raw: true,
@@ -19,4 +21,4 @@ const findById = (id) => userModel.findOne({
 
 const updatePassword = ({ id, password }) => userModel.update({ password }, { where: { id } });
 
-module.exports = { create, findAll, findById, updatePassword };
+module.exports = { create, deleteUser, findAll, findById, updatePassword };

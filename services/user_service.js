@@ -42,6 +42,15 @@ const changePassword = async ({ id, password }) => {
   }
 }
 
+const deleteUser = async ({ id }) => {
+  try {
+    await userRepository.deleteUser({ id });
+    return { status: 204 };
+  } catch (error) {
+    throw { message: 'An error ocurred: Try again.', status: 500 };
+  }
+}
+
 const getAll = async (page, pageSize, order) => {
   try {
     const offset = page * pageSize;
@@ -61,4 +70,4 @@ const getById = async (id) => {
   }
 }
 
-module.exports = { changePassword, create, getAll, getById };
+module.exports = { changePassword, create, deleteUser, getAll, getById };

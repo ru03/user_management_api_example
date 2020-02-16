@@ -1,5 +1,4 @@
 const userService = require('../services/user_service');
-const bcrypt = require('bcrypt');
 
 const allUsers = async (req, res, next) => {
   try {
@@ -46,6 +45,16 @@ const changePassword = async (req, res, next) => {
   }
 }
 
+const deleteUser = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const { status } = await userService.deleteUser({ id });
+    res.status(status).send();
+  } catch ({ message, status }) {
+    res.status(status).json({ message });
+  }
+}
+
 const userById = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -56,4 +65,4 @@ const userById = async (req, res, next) => {
   }
 }
 
-module.exports = { allUsers, changePassword, createUser, userById }
+module.exports = { allUsers, changePassword, createUser, deleteUser, userById }
