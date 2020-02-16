@@ -13,12 +13,13 @@ const allUsers = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
   try {
-    const { name, lastName, email, password } = req.body;
+    const { name, lastName, email, password, isActive: active } = req.body;
     const newUser = {
       name,
       lastName,
       email,
       password,
+      active
     };
     const { status, users } = await userService.create(newUser);
     res.status(status).json({ users });

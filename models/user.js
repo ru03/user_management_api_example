@@ -30,6 +30,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true,
       }
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     }
   },
     {

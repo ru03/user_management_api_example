@@ -4,7 +4,7 @@ const userModel = models.user;
 const create = (user) => userModel.create(user, { raw: true });
 
 const findAll = (limit = 10, offset = 0, order = 'ASC') => userModel.findAndCountAll({
-  attributes: ['id', 'name', 'lastName', 'email', 'createdAt', 'updatedAt'],
+  attributes: ['id', 'name', 'lastName', 'email', 'active', 'createdAt', 'updatedAt'],
   raw: true,
   offset,
   limit,
@@ -12,7 +12,7 @@ const findAll = (limit = 10, offset = 0, order = 'ASC') => userModel.findAndCoun
 });
 
 const findById = (id) => userModel.findOne({
-  attributes: ['id', 'name', 'lastName', 'email', 'createdAt', 'updatedAt'],
+  attributes: ['id', 'name', 'lastName', 'email', 'active', 'createdAt', 'updatedAt'],
   where: { id },
   raw: true,
 });

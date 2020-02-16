@@ -5,6 +5,7 @@ const validator = yup.object().shape({
   lastName: yup.string().required(),
   email: yup.string().email(),
   password: yup.string().matches(/(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/).required(),
+  active: yup.bool().required(),
 });
 
 const password = yup.object().shape({
