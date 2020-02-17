@@ -12,13 +12,13 @@ const allUsers = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
   try {
-    const { name, lastName, email, password, isActive: active } = req.body;
+    const { name, lastName, email, position, isActive: active } = req.body;
     const newUser = {
       name,
       lastName,
       email,
-      password,
-      active
+      active,
+      position,
     };
     const { status, users } = await userService.create(newUser);
     res.status(status).json({ users });
@@ -55,6 +55,29 @@ const deleteUser = async (req, res, next) => {
   }
 }
 
+const updateUser = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const { name, lastName, email, position, isActive: active } = req.body;
+    const updatedUser = {
+      id,
+      name,
+      lastName,
+      email,
+      active,
+      position,
+    };
+    const { status, users } = await userService.update(updatedUser);
+    res.status(status).json({ users });
+  } catch ({ message, messages, status }) {
+    if (messages) {
+      res.status(status).json({ message: messages });
+    } else {
+      res.status(status).json({ message });
+    }
+  }
+}
+
 const userById = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -65,4 +88,4 @@ const userById = async (req, res, next) => {
   }
 }
 
-module.exports = { allUsers, changePassword, createUser, deleteUser, userById }
+module.exports = { allUsers, changePassword, createUser, deleteUser, updateUser, userById }

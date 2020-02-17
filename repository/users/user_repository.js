@@ -14,11 +14,19 @@ const findAll = (limit = 10, offset = 0, order = 'ASC') => userModel.findAndCoun
 });
 
 const findById = (id) => userModel.findOne({
-  attributes: ['id', 'name', 'lastName', 'email', 'active', 'createdAt', 'updatedAt'],
+  attributes: ['id', 'name', 'lastName', 'email', 'active', 'position', 'createdAt', 'updatedAt'],
   where: { id },
   raw: true,
 });
 
 const updatePassword = ({ id, password }) => userModel.update({ password }, { where: { id } });
 
-module.exports = { create, deleteUser, findAll, findById, updatePassword };
+const updateUser = ({ id, active, name, lastName, position, email }) => userModel.update({
+  active,
+  email,
+  lastName,
+  name,
+  position,
+}, { where: { id } });
+
+module.exports = { create, deleteUser, findAll, findById, updatePassword, updateUser };
