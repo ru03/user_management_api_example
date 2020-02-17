@@ -4,7 +4,10 @@ const cookieParser = require('cookie-parser');
 const sequelizeConf = require('./config/sequelize/config');
 const logger = require('winston');
 const cors = require('cors');
+const passport = require('passport');
 const indexRouter = require('./routes/index');
+//Passport config
+require('./middleware/jwt/verify');
 
 const app = express();
 
@@ -13,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 // TODO: Change CORS
 app.use(cors({ origin: true, credentials: true }));
 // app.use((req, res, next) => {

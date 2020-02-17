@@ -75,7 +75,6 @@ const update = async (user) => {
     await userRepository.updateUser({ ...user });
     return { users: user, status: 200 };
   } catch ({ inner, message }) {
-    console.log('error', message)
     if (inner) {
       const errors = inner.reduce((p, c) => {
         return { ...p, [c.path]: c.message };
