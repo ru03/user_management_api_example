@@ -19,8 +19,9 @@ const login = async ({ email, password }) => {
     } else {
       throw { status: 404, message: 'User not found' };
     }
-  } catch (error) {
-    throw { status: 500, message: 'Try again please' };
+  } catch ({ message: errorMsg }) {
+    const message = errorMsg || 'Try again please';
+    throw { status: 500, message };
   }
 }
 
