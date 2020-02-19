@@ -4,10 +4,10 @@ const passport = require('passport');
 const userController = require('../controllers/user_controller');
 /* GET users listing. */
 router.get('/', passport.authenticate('jwt', { session: false }), userController.allUsers);
-router.get('/:id', userController.userById);
-router.put('/:id', userController.updateUser);
-router.delete('/:id', userController.deleteUser);
-router.patch('/change-password', userController.changePassword);
-router.post('/', userController.createUser);
+router.get('/:id', passport.authenticate('jwt', { session: false }), userController.userById);
+router.put('/:id', passport.authenticate('jwt', { session: false }), userController.updateUser);
+router.delete('/:id', passport.authenticate('jwt', { session: false }), userController.deleteUser);
+router.patch('/change-password', passport.authenticate('jwt', { session: false }), userController.changePassword);
+router.post('/', passport.authenticate('jwt', { session: false }), userController.createUser);
 
 module.exports = router;
