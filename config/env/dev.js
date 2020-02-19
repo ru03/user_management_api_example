@@ -9,6 +9,10 @@ const dev = {
   logging: {
     deployment: 'DEV',
     level: 'info',
+  },
+  jwt: {
+    expiresIn: 3600,
+    secret: 'Your_JWT_Secret!'
   }
 }
 
