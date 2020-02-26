@@ -6,6 +6,9 @@ const production = {
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
   },
+  cors: {
+    origin: process.env.CORS_ORIGIN,
+  },
   logging: {
     deployment: 'PROD',
     level: 'verbose',

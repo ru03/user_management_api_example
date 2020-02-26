@@ -1,10 +1,13 @@
 const dev = {
   database: {
-    name: 'DB Name',
-    host: 'HOST',
-    password: 'PASS',
+    name: 'user_management',
+    host: 'localhost',
+    password: 'root',
     port: 8889,
-    user: 'USER',
+    user: 'root',
+  },
+  cors: {
+    origin: '*'
   },
   logging: {
     deployment: 'DEV',
@@ -12,7 +15,7 @@ const dev = {
   },
   jwt: {
     expiresIn: 3600,
-    secret: 'Your_JWT_Secret!'
+    secret: 'Mysecret1!'
   }
 }
 
